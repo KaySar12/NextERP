@@ -17,7 +17,7 @@ install:
 	pip install -r requirements.txt
 update_env:
 	@awk '/^ODOO_TAG=/ { $$0 = "ODOO_TAG=${BRANCH}" } 1' ${DEPLOY_PATH}/.env > ${DEPLOY_PATH}/.env.tmp && mv ${DEPLOY_PATH}/.env.tmp ${DEPLOY_PATH}/.env
-build-image: update_tag
+build-image: update_env
 	DOCKER_BUILDKIT=1 ${DOCKER_BUILD} . --progress plain --tag ${ODOO_IMAGE}
 push-image:
 	$(DOCKERPUSH) ${ODOO_IMAGE}
