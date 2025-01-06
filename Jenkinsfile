@@ -1,15 +1,17 @@
 pipeline {
-    agent any
+    agent {
+        'Node-Dev-100163'
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh 'make install'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo 'Testing...'
             }
         }
         stage('Deploy') {

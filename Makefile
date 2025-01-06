@@ -15,6 +15,8 @@ CONFIG=odoo.conf
 install:
 	sudo apt install python3-pip libldap2-dev libpq-dev libsasl2-dev && \
 	pip install -r requirements.txt
+test:
+	${PYTHON} odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
 update_env:
 	@awk '/^ODOO_TAG=/ { $$0 = "ODOO_TAG=${BRANCH}" } 1' ${DEPLOY_PATH}/.env > ${DEPLOY_PATH}/.env.tmp && mv ${DEPLOY_PATH}/.env.tmp ${DEPLOY_PATH}/.env
 build-image: update_env
