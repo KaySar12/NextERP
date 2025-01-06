@@ -9,9 +9,11 @@ DOCKER_BUILD=$(DOCKERCMD) build
 DOCKER_PUSH=$(DOCKERCMD) push
 DOCKER_IMAGE=$(DOCKERCMD) image
 DEPLOY_PATH=${PWD}/deployment
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+HASH := $(shell git rev-parse HEAD)
 update_env:
-    @awk '/^MY_VAR=/ { $$0 = "MY_VAR=new_value" } 1' .env > .env.tmp && mv .env.tmp .env
-build-image: 
+	@awk '/^ODOO_TAG=/ { $$0 = "ODOO_TAG=${BRANCH}" } 1' ${DEPLOY_PATH}/.env > ${DEPLOY_PATH}/.env.tmp && mv ${DEPLOY_PATH}/.env.tmp ${DEPLOY_PATH}/.env
+build-image: update_tag
 	DOCKER_BUILDKIT=1 ${DOCKER_BUILD} . --progress plain --tag ${ODOO_IMAGE}
 push-image:
 	$(DOCKERPUSH) ${ODOO_IMAGE}
