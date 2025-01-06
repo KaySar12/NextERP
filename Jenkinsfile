@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        'Node-Dev-100163'
-    }
+    agent Node-Dev-100163
 
     stages {
         stage('Build') {
