@@ -13,6 +13,8 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 install:
+	pyenv virtualenv ${BRANCH}
+	pyenv activate ${BRANCH}
 	export DEBIAN_FRONTEND=noninteractive && \
 	sudo apt -y update && \
 	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev && \
