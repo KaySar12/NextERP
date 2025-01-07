@@ -10,10 +10,9 @@ DOCKER_PUSH=$(DOCKERCMD) push
 DOCKER_IMAGE=$(DOCKERCMD) image
 DEPLOY_PATH=${PWD}/deployment
 SETUP_PATH=${PWD}/setup
-HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 ODOO_IMAGE=hub.nextzenos.com/nexterp/odoo
-TAG := develop
+TAG := $(shell rev-parse --abbrev-ref HEAD)
 CONTAINER_ID=odoo-${TAG}
 install:
 	sudo apt -y update && \
@@ -39,6 +38,8 @@ run_server_docker:
 	fi
 	cd ${DEPLOY_PATH}  &&\
 	${DOCKER_COMPOSE_CMD} up -d
+update_tag:
+	${SETUP_PATH}/update_tag.sh $(CURR_BRANCH)
 restore_database:
 	@echo "Checking for backup.zip in container..."
 	@if sudo docker exec ${CONTAINER_ID} test -f /etc/odoo/backup/backup.zip; then \
