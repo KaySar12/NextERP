@@ -1,8 +1,5 @@
 node('Node-Dev-100163') {
     try {
-        options {
-            skipNotifications()
-        }
         stage('Checkout') {
             echo 'Pulling...' + env.BRANCH_NAME
             checkout scm
