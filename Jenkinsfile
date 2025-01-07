@@ -9,10 +9,10 @@ node('Node-Dev-100163') {
             sh 'make stop_server_docker'
             sh 'make gen_config'
             sh 'make build_image'
-            sh 'make restore_database'
         }
         stage('Start'){ 
             sh 'make run_server_docker'
+            sh 'make restore_database'
         }
         stage('Testing') {
             sh 'make run_test_docker' 
