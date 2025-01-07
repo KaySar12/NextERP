@@ -19,7 +19,8 @@ install:
 	sudo apt -y update && \
 	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev
 run_test_docker: 
-	sudo docker exec ${CONTAINER_ID} odoo --test-tags :TestAccountMove.test_out_invoice_auto_post_monthly,TestAccountMove.test_included_tax  --log-level=test --test-enable -d testdb --stop-after-init --config=/etc/odoo/${CONFIG} --xmlrpc-port=8071
+	sudo docker exec ${CONTAINER_ID} odoo --test-tags :TestAccountMove.test_out_invoice_auto_post_monthly,TestAccountMove.test_included_tax  --log-level=test --test-enable -d testdb --stop-after-init --config=/etc/odoo/${CONFIG} --xmlrpc-port=8071 && \
+	sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} drop testdb
 run_test_local: 
 	odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
 gen_config:
@@ -38,6 +39,13 @@ run_server_docker:
 	fi
 	cd ${DEPLOY_PATH}  &&\
 	${DOCKER_COMPOSE_CMD} up -d
+restore_database:
+	@if [ ! -f ${DEPLOY_PATH}/backup/backup.zip ]; then \
+		echo "Backup file does not exist. Skipping restoration."; \
+	else \
+		echo "Restoring database from backup..."; \
+		sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} load new_db ${DEPLOY_PATH}/backup/backup.zip; \
+	fi
 stop_server_docker:
 	@if ! docker ps | grep -q "${CONTAINER_ID}"; then \
 		echo "Container not found. Skipping"; \
@@ -55,6 +63,7 @@ clean_up:
 	find "${DEPLOY_PATH}" -mindepth 1 -maxdepth 1  \
 		! -name "etc" \
 		! -name "addons" \
+		! -name "backup" \
 		! -name "*.sh" \
 		! -name "*.template" \
 		! -name "*.py" \
