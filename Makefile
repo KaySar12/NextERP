@@ -20,8 +20,7 @@ install:
 	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev
 run_test_docker: 
 	sudo docker exec ${CONTAINER_ID} odoo --test-tags :TestAccountMove.test_out_invoice_auto_post_monthly,TestAccountMove.test_included_tax  --log-level=test --test-enable -d testdb --stop-after-init --config=/etc/odoo/${CONFIG} --xmlrpc-port=8071 && \
-	sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} drop testdb &&\
-	sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} drop nexterp
+	sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} drop testdb 
 run_test_local: 
 	odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
 gen_config:
