@@ -14,8 +14,8 @@ HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 install:
 	export DEBIAN_FRONTEND=noninteractive && \
-	sudo apt update && \
-	sudo apt install python3-pip libldap2-dev libpq-dev libsasl2-dev && \
+	sudo apt -y update && \
+	sudo apt install -y python3-pip libldap2-dev libpq-dev libsasl2-dev && \
 	pip install -r requirements.txt
 gen_test_config:
 	${PWD}/setup/init_conf.sh
