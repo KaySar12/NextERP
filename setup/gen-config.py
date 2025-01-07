@@ -57,6 +57,7 @@ def main():
     config_path=args.config
     app_port = 10017
     # Copy template files
+    os.makedirs(f"{base_dir}/etc", exist_ok=True)
     color_log.Show(3,f"Copy {base_dir}/odoo.conf.template to {base_dir}/etc/odoo.conf")
     shutil.copyfile(f'{base_dir}/odoo.conf.template', f'{base_dir}/etc/odoo.conf')
     shutil.copyfile(f'{base_dir}/env.template', f'{base_dir}/.env')
