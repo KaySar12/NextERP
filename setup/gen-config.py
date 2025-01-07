@@ -38,7 +38,6 @@ def main():
     parser.add_argument('--db_port', type=int, help='')
     parser.add_argument('--db_user', type=str, help='')
     parser.add_argument('--deploy_path', type=str, help='')
-    parser.add_argument('--db', type=str, help='')
     parser.add_argument('--image', type=str, help='')
     parser.add_argument('--tag', type=str, help='')
     parser.add_argument('--addons', type=str, help='')
@@ -50,7 +49,6 @@ def main():
     db_pass = "smartyourlife"
     db_user = args.db_user
     base_dir= args.deploy_path
-    db_name=args.db
     image=args.image
     tag=args.tag
     container=args.container
@@ -81,7 +79,6 @@ def main():
     env_file_path = Path("deployment/.env")
     set_key(dotenv_path=env_file_path, key_to_set="COMPOSE_PROJECT_NAME", value_to_set=f"odoo-{tag}",quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_PORT", value_to_set=find_available_port(5432),quote_mode="never")
-    set_key(dotenv_path=env_file_path, key_to_set="PG_DB", value_to_set=db_name,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_USER", value_to_set=db_user,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_PASS", value_to_set=db_pass,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="ODOO_CONFIG", value_to_set=config_path,quote_mode="never")
