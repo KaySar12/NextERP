@@ -6,7 +6,6 @@ node('Node-Dev-100163') {
         }
         stage('Build') {
             sh 'make install'
-            sh 'make push-image'
             sh 'make build-image'
         }
         stage('Start Docker Container'){
