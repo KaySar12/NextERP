@@ -21,7 +21,7 @@ install:
 run_test_docker: 
 	sudo docker exec ${CONTAINER_ID} odoo -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=/etc/odoo/${CONFIG} --xmlrpc-port=8070
 run_test_local: 
-	odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
+	odoo-bin -i sale --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
 gen_config:
 	${PWD}/setup/init_config.sh ${ODOO_IMAGE} ${TAG} ${CONTAINER_ID}
 build_image: gen_config

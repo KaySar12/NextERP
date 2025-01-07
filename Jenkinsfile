@@ -13,7 +13,7 @@ node('Node-Dev-100163') {
             sh 'make run_server_docker'
         }
         stage('Testing') {
-            // sh 'make run_test_docker' 
+            sh 'make run_test_docker' 
         }
         stage('Publish') {
             sh 'make push_image' 
