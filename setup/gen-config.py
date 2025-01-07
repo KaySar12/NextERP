@@ -70,6 +70,7 @@ def main():
     config['options']['db_port'] = str(db_port)
     config['options']['addons_path'] = "/mnt/extra-addons"
     config['options']['data_dir'] = "/var/lib/odoo"
+    config['options']['proxy_mode'] = "True"
     with open(f'{base_dir}/etc/odoo.conf', 'w') as configfile:
         config.write(configfile)
 
