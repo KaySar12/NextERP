@@ -46,7 +46,7 @@ def main():
     parser.add_argument('--container', type=str, help='')
     args = parser.parse_args()
     db_port = args.db_port
-    db_pass = generate_password(24)
+    db_pass = "smartyourlife"
     db_user = args.db_user
     base_dir= args.deploy_path
     db_name=args.db

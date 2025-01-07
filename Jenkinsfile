@@ -6,7 +6,8 @@ node('Node-Dev-100163') {
         }
         stage('Build') {
             sh 'make install'
-            sh 'make clean_up'
+            sh 'make stop_server_docker'
+            sh 'make gen_config'
             sh 'make build_image'
         }
         stage('Start Docker Container'){ 
@@ -18,9 +19,12 @@ node('Node-Dev-100163') {
         stage('Publish') {
             sh 'make push_image' 
         }
+        // stage('Cleanup') {
+        //     sh 'make clean_up' 
+        // }
         currentBuild.result = "SUCCESS" // Set success status after all stages complete
     } catch (err) {
-        currentBuild.result = "SUCCESS"
+        currentBuild.result = "FAILURE"
         throw err
     }
 }

@@ -24,7 +24,7 @@ run_test_local:
 	odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
 gen_config:
 	${PWD}/setup/init_config.sh ${ODOO_IMAGE} ${TAG} ${CONTAINER_ID}
-build_image: gen_config
+build_image:
 	DOCKER_BUILDKIT=1 ${DOCKER_BUILD} . --progress plain --tag ${ODOO_IMAGE}:${TAG}
 push_image:
 	$(DOCKER_PUSH) ${ODOO_IMAGE}:${TAG}
@@ -38,6 +38,13 @@ run_server_docker:
 	fi
 	cd ${DEPLOY_PATH}  &&\
 	${DOCKER_COMPOSE_CMD} up -d
+stop_server_docker:
+	@if ! docker ps | grep -q "${CONTAINER_ID}"; then \
+		echo "Container not found. Skipping"; \
+	else \
+		cd ${DEPLOY_PATH}  &&\
+		${DOCKER_COMPOSE_CMD} down; \
+	fi
 clean_up: 
 	@if ! docker ps | grep -q "${CONTAINER_ID}"; then \
 		echo "Container not found. Skipping"; \
