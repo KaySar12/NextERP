@@ -21,7 +21,7 @@ check_env:
 	fi
 
 install:
-	pyenv deactivate || true
+	$(MAKE) check_env
 	pyenv activate ${BRANCH} &&\
 	export DEBIAN_FRONTEND=noninteractive && \
 	sudo apt -y update && \
