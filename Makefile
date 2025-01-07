@@ -15,7 +15,7 @@ CONFIG=odoo.conf
 install:
 	export DEBIAN_FRONTEND=noninteractive && \
 	sudo apt -y update && \
-	sudo apt install -y python3.12-full python3-pip libldap2-dev libpq-dev libsasl2-dev && \
+	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev && \
 	pip install -r requirements.txt
 gen_test_config:
 	${PWD}/setup/init_conf.sh
