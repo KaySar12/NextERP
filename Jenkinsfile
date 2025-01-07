@@ -5,10 +5,10 @@ node('Node-Dev-100163') {
             checkout scm
         }
         stage('Cleanup') {
+            sh './setup/update_tag.sh ${env.BRANCH_NAME}'
             sh 'make clean_up' 
         }
         stage('Build') {
-            sh './setup/update_tag.sh ${env.BRANCH_NAME}'
             sh 'make install'
             sh 'make stop_server_docker'
             sh 'make gen_config'
