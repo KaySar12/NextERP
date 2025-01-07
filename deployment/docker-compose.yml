@@ -19,6 +19,7 @@ services:
       - ${ENTRYPOINT:-./entrypoint.sh}:/entrypoint.sh   # use for install additional package (Optional)
       - ${ODOO_ADDONS:-./addons}:/mnt/extra-addons
       - ${ODOO_CONFIG:-./etc}:/etc/odoo
+      - ${ODOO_BACKUP:-./backup/ce}:/etc/odoo/backup
     restart: always  
   db:
     image: postgres:16
@@ -26,7 +27,7 @@ services:
     environment:
       - POSTGRES_USER=${PG_USER:-changeme}
       - POSTGRES_PASSWORD=${PG_PASS:-password}
-      - POSTGRES_DB=${PG_DB:-postgres}
+      - POSTGRES_DB=postgres
     ports:
       - ${PG_PORT:-5432}:5432
     restart: always             

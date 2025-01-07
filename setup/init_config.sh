@@ -8,7 +8,6 @@ SETUP_PATH=$(pwd)/setup
 ODOO_IMAGE=$1
 ODOO_TAG=$2
 ODOO_CONTAINER=$3
-PG_DB=nexterp
 PG_USER=nexterp
 ODOO_ADDONS=./addons
 ODOO_CONFIG=./etc
@@ -92,7 +91,8 @@ Generate_Config(){
         cp "${DEPLOY_PATH}/env.template" "${DEPLOY_PATH}/.env"
     fi
     python "$SETUP_PATH/gen-config.py" --db_port 5432 --db_user $PG_USER --deploy_path "$DEPLOY_PATH" \
-    --db ${PG_DB:=odoo} --image "${ODOO_IMAGE}" --container "${ODOO_CONTAINER}" --tag "${ODOO_TAG:=latest}" --addons "${ODOO_ADDONS}" --config "${ODOO_CONFIG}"
+    --image "${ODOO_IMAGE}" --container "${ODOO_CONTAINER}" --tag "${ODOO_TAG:=latest}" \
+    --addons "${ODOO_ADDONS}" --config "${ODOO_CONFIG}" --backup community
     Show 0 " Generate Config Complete"
 }
 
