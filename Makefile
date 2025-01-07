@@ -10,7 +10,6 @@ DOCKER_PUSH=$(DOCKERCMD) push
 DOCKER_IMAGE=$(DOCKERCMD) image
 DEPLOY_PATH=${PWD}/deployment
 SETUP_PATH=${PWD}/setup
-HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 ODOO_IMAGE=hub.nextzenos.com/nexterp/odoo
 TAG := $(shell rev-parse --abbrev-ref HEAD)
