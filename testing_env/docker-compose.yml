@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  db-test:
+    image: postgres:16
+    user: root
+    environment:
+      - POSTGRES_USER=${PG_USER:-changeme}
+      - POSTGRES_PASSWORD=${PG_PASS:-password}
+      - POSTGRES_DB=${PG_DB:-postgres}
+    restart: always
+    ports:
+      - ${PG_PORT:-5432}:5432
+    volumes:
+        - ${PG_DATA:-./postgresql}:/var/lib/postgresql/data
+        

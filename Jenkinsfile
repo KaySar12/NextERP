@@ -1,21 +1,17 @@
-pipeline {
-    agent {label 'Node-Dev-100163'}
+node('node'){
+     currentBuild.result = "SUCCESS"
+     try {
+    stage('Checkout'){
 
-    stages {
-        stage('Build') {
-            steps {
-                sh 'pwd'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+          checkout scm
+    }
+    stage('Test'){
+            
+    }
+
+     } catch (err) {
+
+        currentBuild.result = "FAILURE"
+        throw err
     }
 }

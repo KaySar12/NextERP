@@ -12,8 +12,8 @@ CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
 ODOO_ADDONS=./addons
 ODOO_CONFIG=./etc
 # System
-DEPENDS_PACKAGE=('wget' 'curl' 'git' 'unzip')
-DEPENDS_COMMAND=('wget' 'curl' 'git' 'unzip')
+DEPENDS_PACKAGE=('wget' 'curl' 'git' 'unzip' 'make' 'build-essential' 'wkhtmltopdf')
+DEPENDS_COMMAND=('wget' 'curl' 'git' 'unzip' 'make' 'wkhtmltopdf')
 ((EUID)) && sudo_cmd="sudo" || sudo_cmd=""
 readonly MINIMUM_DOCER_VERSION="20"
 UNAME_U="$(uname -s)"
