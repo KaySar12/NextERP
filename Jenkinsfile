@@ -10,7 +10,7 @@ node('Node-Dev-100163') {
             sh 'make gen_config'
             sh 'make build_image'
         }
-        stage('Start Docker Container'){ 
+        stage('Start'){ 
             sh 'make run_server_docker'
         }
         stage('Testing') {
