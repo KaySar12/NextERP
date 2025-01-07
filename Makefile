@@ -40,12 +40,9 @@ run_server_docker:
 	cd ${DEPLOY_PATH}  &&\
 	${DOCKER_COMPOSE_CMD} up -d
 restore_database:
-	@if [ ! -f ${DEPLOY_PATH}/backup/backup.zip ]; then \
-		echo "Backup file does not exist. Skipping restoration."; \
-	else \
-		echo "Restoring database from backup..."; \
-		sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} load new_db ${DEPLOY_PATH}/backup/backup.zip; \
-	fi
+	echo "Restoring database from backup..."; \
+	sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} load new_db /etc/odoo/backup/backup.zip; \
+
 stop_server_docker:
 	@if ! docker ps | grep -q "${CONTAINER_ID}"; then \
 		echo "Container not found. Skipping"; \

@@ -19,6 +19,7 @@ services:
       - ${ENTRYPOINT:-./entrypoint.sh}:/entrypoint.sh   # use for install additional package (Optional)
       - ${ODOO_ADDONS:-./addons}:/mnt/extra-addons
       - ${ODOO_CONFIG:-./etc}:/etc/odoo
+      - ${ODOO_BACKUP:-./backup/ce}:/etc/odoo/backup
     restart: always  
   db:
     image: postgres:16

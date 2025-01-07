@@ -44,6 +44,7 @@ def main():
     parser.add_argument('--addons', type=str, help='')
     parser.add_argument('--config', type=str, help='')
     parser.add_argument('--container', type=str, help='')
+    parser.add_argument('--backup', type=str, help='')
     args = parser.parse_args()
     db_port = args.db_port
     db_pass = "smartyourlife"
@@ -56,6 +57,7 @@ def main():
     addons=args.addons
     config_path=args.config
     app_port = 10017
+    backup = args.backup
     # Copy template files
     os.makedirs(f"{base_dir}/etc", exist_ok=True)
     color_log.Show(3,f"Copy {base_dir}/odoo.conf.template to {base_dir}/etc/odoo.conf")
@@ -88,5 +90,9 @@ def main():
     set_key(dotenv_path=env_file_path, key_to_set="ODOO_IMAGE", value_to_set=image,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="ODOO_TAG", value_to_set=tag,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="ODOO_CONTAINER", value_to_set=container,quote_mode="never")
+    if (backup == 'community'):
+        set_key(dotenv_path=env_file_path, key_to_set="ODOO_BACKUP", value_to_set=f'{base_dir}/backup/ce',quote_mode="never")
+    if (backup == 'enterprise'):
+        set_key(dotenv_path=env_file_path, key_to_set="ODOO_BACKUP", value_to_set=f'{base_dir}/backup/enterprise',quote_mode="never")
 if __name__ == "__main__":
     main()
