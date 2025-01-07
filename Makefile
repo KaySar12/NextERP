@@ -43,7 +43,7 @@ restore_database:
 	@echo "Checking for backup.zip in container..."
 	@if sudo docker exec ${CONTAINER_ID} test -f /etc/odoo/backup/backup.zip; then \
 		echo "Restoring database from backup..."; \
-		sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} load new_db /etc/odoo/backup/backup.zip; \
+		sudo docker exec ${CONTAINER_ID} odoo db --config=/etc/odoo/${CONFIG} load backup /etc/odoo/backup/backup.zip; \
 	else \
 		echo "Error: backup.zip not found in container. Aborting restore."; \
 	fi
