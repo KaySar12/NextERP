@@ -4,7 +4,6 @@ export PATH=/usr/sbin:$PATH
 export DEBIAN_FRONTEND=noninteractive
 
 set -euo pipefail
-((EUID)) && sudo_cmd="sudo" || sudo_cmd=""
 readonly COLOUR_RESET='\e[0m'
 readonly aCOLOUR=(
     '\e[38;5;154m' # green  	| Lines, bullets and separators
@@ -49,17 +48,12 @@ ColorReset() {
 }
 
 
-generate_config() {
-  python setup/gen-config.py
-  echo "Generate Config Complete"
-}
-
-run_test_db() {
+stop_test_db() {
   cd "$(pwd)/testing_env"
-  echo "Starting containers..."
-  docker-compose up -d
-  echo "Test Server is online"
+  Show 2 "Stopping containers..."
+  docker-compose down
+  rm -f "$(find . -type f \( -name "*.yml" -o -name "*.template" \) -not -name "docker-compose.yml" -not -name "env.template" )"
+  Show 0 "Test Server is offline"
 }
 
-generate_config
-run_test_db
+stop_test_db

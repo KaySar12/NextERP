@@ -15,10 +15,12 @@ CONFIG=odoo.conf
 install:
 	sudo apt install python3-pip libldap2-dev libpq-dev libsasl2-dev && \
 	pip install -r requirements.txt
-run_test: gen_test_config
-	${PYTHON} odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
 gen_test_config:
 	${PWD}/setup/init_conf.sh
+run_test: 
+	${PYTHON} odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
+clean_test:
+	${PWD}/setup/clean_up.sh
 gen_env:
 	${PWD}/setup/init_env.sh
 build-image: gen_env
