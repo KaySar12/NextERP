@@ -1,4 +1,3 @@
-include deployment/.env
 .SHELLFLAGS += ${SHELLFLAGS} -e
 PWD = $(shell pwd)
 UID = $(shell id -u)
@@ -15,10 +14,10 @@ CONFIG=odoo.conf
 install:
 	sudo apt install python3-pip libldap2-dev libpq-dev libsasl2-dev && \
 	pip install -r requirements.txt
-test:
+run_test:
 	${PYTHON} odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
-update_env:
-	@awk '/^ODOO_TAG=/ { $$0 = "ODOO_TAG=${BRANCH}" } 1' ${DEPLOY_PATH}/.env > ${DEPLOY_PATH}/.env.tmp && mv ${DEPLOY_PATH}/.env.tmp ${DEPLOY_PATH}/.env
+gen_env:
+	${PWD}/setup/init_env.sh
 build-image: update_env
 	DOCKER_BUILDKIT=1 ${DOCKER_BUILD} . --progress plain --tag ${ODOO_IMAGE}
 push-image:
