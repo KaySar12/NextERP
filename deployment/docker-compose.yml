@@ -27,6 +27,8 @@ services:
       - POSTGRES_USER=${PG_USER:-changeme}
       - POSTGRES_PASSWORD=${PG_PASS:-password}
       - POSTGRES_DB=${PG_DB:-postgres}
+    ports:
+      - ${PG_PORT:-5432}:5432
     restart: always             
     volumes:
         - ${PG_DATA:-./postgresql}:/var/lib/postgresql/data

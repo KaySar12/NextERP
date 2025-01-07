@@ -14,7 +14,7 @@ def generate_password(length=16):
     alphabet = string.ascii_letters + string.digits
     return ''.join(secrets.choice(alphabet) for _ in range(length))
 
-def find_available_port(start_port=5432):
+def find_available_port(start_port=80):
     """Finds an available port starting from the given port."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         while True:
@@ -75,6 +75,7 @@ def main():
 
     # Update .env file
     env_file_path = Path("deployment/.env")
+    set_key(dotenv_path=env_file_path, key_to_set="PG_PORT", value_to_set=find_available_port(5432),quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_DB", value_to_set=db_name,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_USER", value_to_set=db_user,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_PASS", value_to_set=db_pass,quote_mode="never")
