@@ -9,7 +9,7 @@ node('Node-Dev-100163') {
             sh 'make clean_up' 
         }
         stage('Build') {
-            sh 'make install'
+            // sh 'make install'
             sh 'make stop_server_docker'
             sh 'make gen_config'
             sh 'make build_image'

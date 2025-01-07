@@ -189,8 +189,8 @@ Check_Docker_Install_Final() {
     fi
 }
 Check_OS
-Update_Package_Resource
-Install_Depends
-Check_Dependency_Installation
-Check_Docker_Install
+# Update_Package_Resource
+# Install_Depends
+# Check_Dependency_Installation
+# Check_Docker_Install
 Generate_Config
