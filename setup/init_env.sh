@@ -8,7 +8,7 @@ ODOO_IMAGE='hub.nextzenos.com/nexterp/odoo'
 DEPLOY_PATH=$(pwd)/deployment
 PG_DB=nexterp
 PG_USER=nexterp
-CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+CURRENT_BRANCH=main
 ODOO_ADDONS=./addons
 ODOO_CONFIG=./etc
 # System

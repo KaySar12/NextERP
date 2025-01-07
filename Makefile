@@ -9,10 +9,12 @@ DOCKER_PUSH=$(DOCKERCMD) push
 DOCKER_IMAGE=$(DOCKERCMD) image
 DEPLOY_PATH=${PWD}/deployment
 SETUP_PATH=${PWD}/setup
-BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+BRANCH := main
 HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 install:
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
 	pyenv virtualenv ${BRANCH}
 	pyenv activate ${BRANCH}
 	export DEBIAN_FRONTEND=noninteractive && \
