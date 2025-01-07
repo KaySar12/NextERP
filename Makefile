@@ -19,7 +19,7 @@ install:
 	sudo apt -y update && \
 	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev
 run_test_docker: 
-	sudo docker exec -it ${CONTAINER_ID} odoo -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=/etc/odoo/${CONFIG} --xmlrpc-port=8070
+	sudo docker exec ${CONTAINER_ID} odoo -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=/etc/odoo/${CONFIG} --xmlrpc-port=8070
 run_test_local: 
 	odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
 gen_config:
