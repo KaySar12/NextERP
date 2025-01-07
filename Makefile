@@ -13,8 +13,8 @@ SETUP_PATH=${PWD}/setup
 HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 ODOO_IMAGE=hub.nextzenos.com/nexterp/odoo
-CONTAINER_ID=odoo-${TAG}
 TAG := main
+CONTAINER_ID=odoo-${TAG}
 install:
 	sudo apt -y update && \
 	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev

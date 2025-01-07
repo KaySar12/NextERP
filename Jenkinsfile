@@ -6,10 +6,10 @@ node('Node-Dev-100163') {
         }
         stage('Build') {
             sh 'make install'
+            sh 'make clean_up'
             sh 'make build_image'
         }
-        stage('Start Docker Container'){
-            sh 'make clean_up' 
+        stage('Start Docker Container'){ 
             sh 'make run_server_docker'
         }
         stage('Testing') {
