@@ -13,8 +13,9 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 install:
-	sudo DEBIAN_FRONTEND=noninteractive apt-get update && \
-	sudo DEBIAN_FRONTEND=noninteractive apt install python3-pip libldap2-dev libpq-dev libsasl2-dev && \
+	export DEBIAN_FRONTEND=noninteractive && \
+	sudo apt update && \
+	sudo apt install python3-pip libldap2-dev libpq-dev libsasl2-dev && \
 	pip install -r requirements.txt
 gen_test_config:
 	${PWD}/setup/init_conf.sh
