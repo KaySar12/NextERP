@@ -6,21 +6,16 @@ node('Node-Dev-100163') {
         }
         stage('Build') {
             steps{
-                    sh 'make install'
-                }
-            steps{
-                    sh 'make build-image'
-                }
-            steps{
-                    sh 'make push-image'
+                sh 'make install'
+                sh 'make push-image'
+                sh 'make build-image'
             }
+
         }
         stage('Start Docker Container'){
             steps{
-               sh 'make clean_up' 
-            }
-            steps{
-               sh 'make run-server-docker' 
+                sh 'make clean_up' 
+                sh 'make run-server-docker'
             }
         }
         stage('Testing') {
