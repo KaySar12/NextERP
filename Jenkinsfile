@@ -5,7 +5,7 @@ node('Node-Dev-100163') {
             checkout scm
         }
         stage('Cleanup') {
-            sh './setup/update_tag.sh ${env.BRANCH_NAME}'
+            sh 'make update_tag CURR_BRANCH=${env.BRANCH_NAME}'
             sh 'make clean_up' 
         }
         stage('Build') {

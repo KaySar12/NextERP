@@ -39,6 +39,8 @@ run_server_docker:
 	fi
 	cd ${DEPLOY_PATH}  &&\
 	${DOCKER_COMPOSE_CMD} up -d
+update_tag:
+	${SETUP_PATH}/update_tag.sh $(CURR_BRANCH)
 restore_database:
 	@echo "Checking for backup.zip in container..."
 	@if sudo docker exec ${CONTAINER_ID} test -f /etc/odoo/backup/backup.zip; then \
