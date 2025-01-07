@@ -188,9 +188,9 @@ Check_Docker_Install_Final() {
         exit 1
     fi
 }
-# Check_OS
-# Update_Package_Resource
-# Install_Depends
-# Check_Dependency_Installation
-# Check_Docker_Install
+Check_OS
+Update_Package_Resource
+Install_Depends
+Check_Dependency_Installation
+Check_Docker_Install
 Generate_Config
