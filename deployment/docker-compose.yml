@@ -24,6 +24,7 @@ services:
   db:
     image: postgres:16
     user: root
+    container_name: ${COMPOSE_PROJECT_NAME:-odoo}-db
     environment:
       - POSTGRES_USER=${PG_USER:-changeme}
       - POSTGRES_PASSWORD=${PG_PASS:-password}
