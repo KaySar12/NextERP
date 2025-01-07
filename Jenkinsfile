@@ -6,17 +6,17 @@ node('Node-Dev-100163') {
         }
         stage('Build') {
             sh 'make install'
-            sh 'make build-image'
+            sh 'make build_image'
         }
         stage('Start Docker Container'){
             sh 'make clean_up' 
-            sh 'make run-server-docker'
+            sh 'make run_server_docker'
         }
         stage('Testing') {
             sh 'make run_test_docker' 
         }
         stage('Publish') {
-            sh 'make push-image' 
+            sh 'make push_image' 
         }
         currentBuild.result = "SUCCESS" // Set success status after all stages complete
     } catch (err) {
