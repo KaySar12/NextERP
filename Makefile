@@ -12,8 +12,16 @@ SETUP_PATH=${PWD}/setup
 BRANCH := main
 HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
+check_env:
+	@if [ ! -d "$(PYENV_ROOT)/versions/${BRANCH}" ]; then \
+		echo "Creating virtualenv for ${BRANCH}"; \
+		pyenv virtualenv ${BRANCH}; \
+	else \
+		echo "Virtualenv for ${BRANCH} already exists"; \
+	fi
+
 install:
-	pyenv virtualenv ${BRANCH} &&\
+	pyenv deactivate || true
 	pyenv activate ${BRANCH} &&\
 	export DEBIAN_FRONTEND=noninteractive && \
 	sudo apt -y update && \
