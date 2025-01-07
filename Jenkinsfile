@@ -8,6 +8,7 @@ node('Node-Dev-100163') {
             sh 'make clean_up' 
         }
         stage('Build') {
+            sh "sed -i 's/TAG := \\$\\(shell rev-parse --abbrev-ref HEAD\\)/TAG := ${env.BRANCH_NAME}/g' Makefile"
             sh 'make install'
             sh 'make stop_server_docker'
             sh 'make gen_config'

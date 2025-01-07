@@ -13,7 +13,7 @@ SETUP_PATH=${PWD}/setup
 HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
 ODOO_IMAGE=hub.nextzenos.com/nexterp/odoo
-TAG := main
+TAG := $(shell rev-parse --abbrev-ref HEAD)
 CONTAINER_ID=odoo-${TAG}
 install:
 	sudo apt -y update && \
