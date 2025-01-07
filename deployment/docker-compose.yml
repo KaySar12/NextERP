@@ -1,13 +1,14 @@
 version: '3.8'
 services:
-  odoo18:
-    image: ${ODOO_IMAGE:-odoo:18}
+  app:
+    image: ${ODOO_IMAGE:-odoo}:${ODOO_TAG:-18}
+    container_name: ${ODOO_CONTAINER:-odoo}
     user: root
     depends_on:
       - db
     ports:
-      - "{ODOO_PORT:-8069}:8069"
-    # - "{ODOO_CHAT_PORT:-8072}:8072"
+      - ${ODOO_PORT:-8069}:8069
+    # - "${ODOO_CHAT_PORT:-8072}:8072"
     tty: true
     command: --
     environment:

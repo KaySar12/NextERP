@@ -4,40 +4,46 @@ UID = $(shell id -u)
 GID = $(shell id -g)
 PYTHON=python
 DOCKERCMD=docker
+DOCKER_COMPOSE_CMD=docker-compose
 DOCKER_BUILD=$(DOCKERCMD) build
 DOCKER_PUSH=$(DOCKERCMD) push
 DOCKER_IMAGE=$(DOCKERCMD) image
 DEPLOY_PATH=${PWD}/deployment
 SETUP_PATH=${PWD}/setup
-BRANCH := main
 HASH := $(shell git rev-parse HEAD)
 CONFIG=odoo.conf
-check_env:
-	@if [ ! -d "$(PYENV_ROOT)/versions/${BRANCH}" ]; then \
-		echo "Creating virtualenv for ${BRANCH}"; \
-		pyenv virtualenv ${BRANCH}; \
-	else \
-		echo "Virtualenv for ${BRANCH} already exists"; \
-	fi
-
+ODOO_IMAGE=hub.nextzenos.com/nexterp/odoo
+CONTAINER_ID=odoo-${TAG}
+TAG := main
 install:
-	$(MAKE) check_env
-	pyenv activate ${BRANCH} &&\
-	export DEBIAN_FRONTEND=noninteractive && \
 	sudo apt -y update && \
-	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev && \
-	pip install -r requirements.txt
-gen_test_config:
-	${PWD}/setup/init_conf.sh
-run_test: 
-	${PYTHON} odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
-clean_test:
-	${PWD}/setup/clean_up.sh
-gen_env:
-	${PWD}/setup/init_env.sh
-build-image: gen_env
-	DOCKER_BUILDKIT=1 ${DOCKER_BUILD} . --progress plain --tag ${ODOO_IMAGE}
+	sudo apt install -y python3-full python3-pip libldap2-dev libpq-dev libsasl2-dev
+run_test_docker: 
+	sudo docker exec -it ${CONTAINER_ID} odoo -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=/etc/odoo/${CONFIG} --xmlrpc-port=8070
+run_test_local: 
+	odoo-bin -i all_modules --log-level=test --test-enable -d testdb  --stop-after-init --config=${CONFIG}
+gen_config:
+	${PWD}/setup/init_config.sh ${ODOO_IMAGE} ${TAG} ${CONTAINER_ID}
+build-image: gen_config
+	DOCKER_BUILDKIT=1 ${DOCKER_BUILD} . --progress plain --tag ${ODOO_IMAGE}:${TAG}
 push-image:
-	$(DOCKERPUSH) ${ODOO_IMAGE}
-run-server:
+	$(DOCKER_PUSH) ${ODOO_IMAGE}:${TAG}
+run-server-local:
 	${PYTHON} odoo-bin --config=${CONFIG}
+run-server-docker: 
+	@if ! docker ps | grep -q "${CONTAINER_ID}"; then \
+		echo "Container not found. Running docker-compose up -d"; \
+	else \
+		echo "Container already running. Skipping docker-compose up -d."; \
+	fi
+	cd ${DEPLOY_PATH}  &&\
+	${DOCKER_COMPOSE_CMD} up -d
+clean_up: 
+	@if ! docker ps | grep -q "${CONTAINER_ID}"; then \
+		echo "Container not found. Skipping"; \
+	else \
+		cd ${DEPLOY_PATH}  &&\
+		${DOCKER_COMPOSE_CMD} down 
+	fi
+	sudo rm -rf ${DEPLOY_PATH}/postgresql
+	
