@@ -75,6 +75,7 @@ def main():
 
     # Update .env file
     env_file_path = Path("deployment/.env")
+    set_key(dotenv_path=env_file_path, key_to_set="COMPOSE_PROJECT_NAME", value_to_set=f"odoo-{tag}",quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_PORT", value_to_set=find_available_port(5432),quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_DB", value_to_set=db_name,quote_mode="never")
     set_key(dotenv_path=env_file_path, key_to_set="PG_USER", value_to_set=db_user,quote_mode="never")
