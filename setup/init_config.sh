@@ -12,7 +12,7 @@ PG_USER=nexterp
 ODOO_ADDONS=./addons
 ODOO_CONFIG=./etc
 # System
-DEPENDS_PACKAGE=('wget' 'curl' 'git' 'unzip' 'make' 'build-essential' 'wkhtmltopdf')
+DEPENDS_PACKAGE=('wget' 'curl' 'git' 'unzip' 'make' 'wkhtmltopdf')
 DEPENDS_COMMAND=('wget' 'curl' 'git' 'unzip' 'make' 'wkhtmltopdf')
 ((EUID)) && sudo_cmd="sudo" || sudo_cmd=""
 readonly MINIMUM_DOCER_VERSION="20"
