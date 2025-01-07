@@ -43,7 +43,12 @@ clean_up:
 		echo "Container not found. Skipping"; \
 	else \
 		cd ${DEPLOY_PATH}  &&\
-		${DOCKER_COMPOSE_CMD} down 
+		${DOCKER_COMPOSE_CMD} down; \
 	fi
-	sudo rm -rf ${DEPLOY_PATH}/postgresql
+	find ${DEPLOY_PATH} -mindepth 1 -maxdepth 1 -type d \
+    ! -name "etc" \
+	! -name "addons" \
+    ! -name "file_to_keep.txt" \
+    ! -name "*.log" \
+    -exec rm -rf {} +
 	
