@@ -1,25 +1,17 @@
-node('Node-Dev-100163'){
-     currentBuild.result = "SUCCESS"
+node('Node-Dev-100163') {
     try {
-        stage('Checkout'){
+        stage('Checkout') {
             checkout scm
         }
-        stage('Setup'){
-           steps {
+        stage('Setup') {
             sh 'make install'
-           }
         }
-        stage('Testing'){
-           steps {
+        stage('Testing') {
             sh 'make gen_test_config'
-           }
-           steps{
             sh 'make run_test'
-           }
-               steps{
-            sh 'make clean_test'
-           }
+            sh 'make clean_test' 
         }
+        currentBuild.result = "SUCCESS" // Set success status after all stages complete
     } catch (err) {
         currentBuild.result = "FAILURE"
         throw err
