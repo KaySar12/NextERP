@@ -8,7 +8,6 @@ SETUP_PATH=$(pwd)/setup
 ODOO_IMAGE=$1
 ODOO_TAG=$2
 ODOO_CONTAINER=$3
-PG_DB=nexterp
 PG_USER=nexterp
 ODOO_ADDONS=./addons
 ODOO_CONFIG=./etc
