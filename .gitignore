@@ -22,7 +22,6 @@ odoo/filestore
 odoo/addons/base/maintenance
 # window installation config file
 /odoo.conf
-deployment/etc/odoo.conf
 # generated for windows installer?
 install/win32/*.bat
 install/win32/meta.py
@@ -50,4 +49,3 @@ package.json
 /share/
 /src/
 /deployment/postgresql/*
-/deployment/etc/*
