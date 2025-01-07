@@ -45,10 +45,14 @@ clean_up:
 		cd ${DEPLOY_PATH}  &&\
 		${DOCKER_COMPOSE_CMD} down; \
 	fi
-	find ${DEPLOY_PATH} -mindepth 1 -maxdepth 1 -type d \
-    ! -name "etc" \
-	! -name "addons" \
-    ! -name "file_to_keep.txt" \
-    ! -name "*.log" \
-    -exec rm -rf {} +
+	find "${DEPLOY_PATH}" -mindepth 1 -maxdepth 1  \
+		! -name "etc" \
+		! -name "addons" \
+		! -name "*.sh" \
+		! -name "*.template" \
+		! -name "*.py" \
+		! -name "*.yml" \
+		-print0 | xargs -0 rm -rf {} && \
+	rm -rf ${DEPLOY_PATH}/etc/*
+	
 	

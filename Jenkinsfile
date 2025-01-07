@@ -17,12 +17,20 @@ node('Node-Dev-100163') {
         }
         stage('Start Docker Container'){
             steps{
+               sh 'make clean_up' 
+            }
+            steps{
                sh 'make run-server-docker' 
             }
         }
         stage('Testing') {
             steps{
                sh 'make run_test_docker' 
+            }
+        }
+        stage('Publish') {
+            steps{
+               sh 'make push-image' 
             }
         }
         currentBuild.result = "SUCCESS" // Set success status after all stages complete
