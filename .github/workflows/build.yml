@@ -1,8 +1,7 @@
-runs-on: self-hosted
 name: GitHub Actions Example
 on: [push]		
 jobs:
-  Explore-GitHub-Actions:
-  runs-on: ubuntu-latest
-     steps:
-      run: echo " The job was automatically triggered by a ${{Github.event_name }} event."
+  build:
+    runs-on: self-hosted
+      steps:
+        run: echo " The job was automatically triggered by a ${{Github.event_name }} event."
