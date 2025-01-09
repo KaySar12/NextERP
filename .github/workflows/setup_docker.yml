@@ -45,6 +45,5 @@ jobs:
 
       - name: Push Image
         run: make push_image
-        
       - name: Clean Up
         run: make clean_up
