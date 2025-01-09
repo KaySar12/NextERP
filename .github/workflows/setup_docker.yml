@@ -12,12 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref || github.ref_name }} 
       - name: Create virtual environment
         run: pyenv virtualenv "$(git rev-parse --short "$GITHUB_SHA")"
   build:
     runs-on: self-hosted
     steps:
+      - name: update tag
+        run: make update_tag CURR_BRANCH=${{ github.head_ref || github.ref_name }} 
       - name: Stop Server Docker
         run: make stop_server_docker
       - name: Generate Config
