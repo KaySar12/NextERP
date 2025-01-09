@@ -7,7 +7,5 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
       - name: list file in code
         uses: ls -la
