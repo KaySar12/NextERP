@@ -9,7 +9,7 @@ jobs:
       - name: Check out source code 
         run: actions/checkout@v4
       - uses: actions/setup-python@v5
-          with:
-            python-version: '3.13'
+        with:
+          python-version: '3.12.7'
       - name: check python version
         run: python --version
