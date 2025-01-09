@@ -1,0 +1,50 @@
+name: GitHub Actions Example
+on:
+  push:
+    branches: [ main ]
+jobs:
+  setup_env:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        python:
+          - 3.12.7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name:  Create virtual environment
+        run: pyenv virtualenv "$(git rev-parse --short "$GITHUB_SHA")"
+      - name:  Create virtual environment
+        run: pyenv virtualenv "$(git rev-parse --short "$GITHUB_SHA")"
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Stop Server Docker
+        uses: make stop_server_docker
+      - name: Generate Config
+        uses: make gen_config
+      - name: Build Image
+        uses: make build_image
+  start:
+    runs-on: self-hosted
+    steps:
+      - name: Start Server
+        uses: make run_server_docker
+      - name: Restore Database
+        uses: make restore_database
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Start Server
+        uses: make run_test_docker 
+  publish:
+    runs-on: self-hosted
+    steps:
+      - name: Push Image
+        uses: make push_image
+  clean_up:
+    runs-on: self-hosted
+    steps:
+    - name:  Cleanup
+      run: make clean_up
