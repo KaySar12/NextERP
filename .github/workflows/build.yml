@@ -8,11 +8,10 @@ jobs:
     strategy:
       matrix:
         python:
-          - 3.10.7
           - 3.12.7
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-      - name: check python version
-        run: python --version
+      - name:  get commit hash
+        run: echo $(git rev-parse --short "$GITHUB_SHA")
