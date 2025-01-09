@@ -16,7 +16,7 @@ jobs:
       - name: Create virtual environment
         run: pyenv virtualenv "$(git rev-parse --short "$GITHUB_SHA")"
       - name: Install dotenv
-        run: pip install dotenv
+        run: sudo apt install python3-dotenv
   build:
     runs-on: self-hosted
     steps:
