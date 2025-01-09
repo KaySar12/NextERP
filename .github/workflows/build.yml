@@ -5,13 +5,19 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+    strategy:
+      matrix:
+        python:
+          - 3.10.7
+          - 3.12.7
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install python version
+        uses: gabrielfalcao/pyenv-action@v18
         with:
-          python-version: '3.11.11'
+          default: "${{ matrix.python }}"
+          command: pip install -U pip
       - name: check python version
         run: python --version
