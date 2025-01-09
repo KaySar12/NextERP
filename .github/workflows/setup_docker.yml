@@ -20,7 +20,7 @@ jobs:
         run: pyenv virtualenv "$(git rev-parse --short "$GITHUB_SHA")"
 
       - name: Install dotenv
-        run: sudo apt install -y python3-dotenv
+        run: pip install python-dotenv
 
       - name: Update Tag
         run: make update_tag CURR_BRANCH=${{ github.ref_name }}
