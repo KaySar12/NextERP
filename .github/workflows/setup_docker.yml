@@ -42,8 +42,12 @@ jobs:
 
       - name: Run Tests
         run: make run_test_docker
-
+        
+      - name: Login Docker hub
+        run: echo ${{ secrets.DOCKER_USER }} | docker login --username ${{ secrets.DOCKER_PASSWORD }} --password-stdin ${{ secrets.DOCKER_HUB }}
+        
       - name: Push Image
         run: make push_image
+
       - name: Clean Up
         run: make clean_up
