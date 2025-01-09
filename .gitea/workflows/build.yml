@@ -7,5 +7,5 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - name: get git version 
-        run: echo {branch}
+      - name: get git current branch 
+        run: git branch --show-current 
