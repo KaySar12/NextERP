@@ -6,5 +6,11 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-      - name: Echo event trigger
-        run: echo "The job was automatically triggered by a ${{github.event_name}} event."
+      - name: Check out source code 
+        run: actions/checkout@v4
+      - name: setup python environment
+        uses: actions/setup-python@v5
+          with:
+            python-version: '3.13'
+      - name: check python version
+        run: python --version
