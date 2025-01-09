@@ -12,7 +12,6 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12.8'
-          architecture: 'x64'
+          python-version: '3.11.11'
       - name: check python version
         run: python --version
