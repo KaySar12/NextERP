@@ -1,7 +1,10 @@
 name: GitHub Actions Example
-on: [push]		
+on:
+  push:
+    branches: [ main ]
 jobs:
   build:
     runs-on: self-hosted
-      steps:
-        run: echo " The job was automatically triggered by a ${{Github.event_name }} event."
+    steps:
+      - name: Echo event trigger
+        run: echo "The job was automatically triggered by a ${{github.event_name}} event."
