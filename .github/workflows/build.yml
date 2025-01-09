@@ -6,8 +6,9 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-      - name: Check out source code 
-        run: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.7'
