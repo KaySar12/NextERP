@@ -15,6 +15,6 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - name: Install python version
-        run: /home/runner/.pyenv/bin/pyenv install "${{ matrix.python }}"
+        run: /home/runner/.pyenv/bin/pyenv install ${{ matrix.python }}
       - name: check python version
         run: python --version
