@@ -2,51 +2,49 @@ name: GitHub Actions Example
 on:
   push:
     branches: [main]
+
 jobs:
-  setup_env:
+  ci_pipeline:
     runs-on: self-hosted
     strategy:
       matrix:
         python:
           - 3.12.7
     steps:
-      - uses: actions/checkout@v4
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref_name }} 
-      - name: Create virtual environment
+          ref: ${{ github.ref_name }}
+      - name: Create Virtual Environment
         run: pyenv virtualenv "$(git rev-parse --short "$GITHUB_SHA")"
+
       - name: Install dotenv
-        run: sudo apt install python3-dotenv
-  build:
-    runs-on: self-hosted
-    steps:
-      - name: update tag
-        run: make update_tag CURR_BRANCH=${{ github.head_ref || github.ref_name }} 
+        run: sudo apt install -y python3-dotenv
+
+      - name: Update Tag
+        run: make update_tag CURR_BRANCH=${{ github.ref_name }}
+
       - name: Stop Server Docker
         run: make stop_server_docker
+
       - name: Generate Config
         run: make gen_config
+
       - name: Build Image
         run: make build_image
-  start:
-    runs-on: self-hosted
-    steps:
+
       - name: Start Server
         run: make run_server_docker
+
       - name: Restore Database
         run: make restore_database
-  test:
-    runs-on: self-hosted
-    steps:
+
       - name: Run Tests
         run: make run_test_docker
-  publish:
-    runs-on: self-hosted
-    steps:
+
       - name: Push Image
         run: make push_image
-  clean_up:
-    runs-on: self-hosted
-    steps:
+        
       - name: Clean Up
         run: make clean_up
