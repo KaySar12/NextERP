@@ -8,15 +8,13 @@ jobs:
     strategy:
       matrix:
         python:
+          - 3.10.7
           - 3.12.7
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
       - name: Install python version
-        uses: gabrielfalcao/pyenv-action@v18
-        with:
-          default: "${{ matrix.python }}"
-          command: pip install -U pip
+        run: pyenv install "${{ matrix.python }}"
       - name: check python version
         run: python --version
