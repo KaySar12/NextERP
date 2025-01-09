@@ -8,8 +8,7 @@ jobs:
     steps:
       - name: Check out source code 
         run: actions/checkout@v4
-      - name: setup python environment
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
           with:
             python-version: '3.13'
       - name: check python version
