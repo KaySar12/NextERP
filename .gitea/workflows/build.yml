@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: list file in code
-        uses: ls -la
+        uses: apt update
