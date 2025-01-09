@@ -14,4 +14,4 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - name:  get commit hash
-        run: echo $(git rev-parse --short "$GITHUB_SHA")
+        run: pyenv virtualenv "$(git rev-parse --short "$GITHUB_SHA")"
