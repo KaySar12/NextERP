@@ -15,6 +15,10 @@ jobs:
         python:
           - 3.12.7
     steps:
+      - name: Fix Permission
+        run: | 
+          sudo chown -R $(whoami):$(whoami) /home/$(whoami)/actions-runner  && \
+          sudo chmod -R 755 /home/$(whoami)/actions-runner
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
