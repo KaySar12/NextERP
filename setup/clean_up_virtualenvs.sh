@@ -3,15 +3,25 @@
 # Get the current branch name
 branch_name=$(git rev-parse --abbrev-ref HEAD)
 
-# Get a list of all virtual environments, filtering out duplicates
-virtualenvs=$(pyenv virtualenvs | awk '{print $1}' | sort -u)
+# Get a list of all virtual environments, filtering out duplicates and those not containing the branch name
+virtualenvs=$(pyenv virtualenvs | awk '{print $1}' | sort -u | grep "$branch_name")
 
-# Loop through each virtual environment and delete it if it contains the branch name
-for venv in $virtualenvs; do
-  if [[ "$venv" == *"$branch_name"* ]]; then
+# Count the number of virtual environments
+count=$(echo "$virtualenvs" | wc -l)
+
+# Calculate how many virtual environments to keep
+keep_count=$((count - $1))
+
+# If there are more than 3 virtual environments, delete the oldest ones
+if (( keep_count > 0 )); then
+  # Get the oldest virtual environments (assuming they are listed first)
+  oldest_venvs=$(echo "$virtualenvs" | head -n "$keep_count")
+
+  # Loop through the oldest virtual environments and delete them
+  for venv in $oldest_venvs; do
     echo "Deleting virtual environment: $venv"
     pyenv virtualenv-delete "$venv" -f
-  fi
-done
+  done
+fi
 
-echo "Virtual environments containing '$branch_name' deleted."
+echo "Old virtual environments containing '$branch_name' deleted."

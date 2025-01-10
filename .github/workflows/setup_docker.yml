@@ -24,7 +24,7 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
       - name: Create Virtual Environment
-        run: /home/nextzen/.pyenv/bin/pyenv virtualenv "${{ github.ref_name }}-$(git rev-parse --short "$GITHUB_SHA")"
+        run: pyenv virtualenv "${{ github.ref_name }}-$(git rev-parse --short "$GITHUB_SHA")"
 
       - name: Install dotenv
         run: pip install python-dotenv
