@@ -71,7 +71,7 @@ clean_up:
 		! -name "*.template" \
 		! -name "*.py" \
 		! -name "*.yml" \
-		-print0 | xargs -0 rm -rf {} && \
+		-print0 | sudo xargs -0 rm -rf {} && \
 	sudo rm -rf ${DEPLOY_PATH}/etc/*
 	
 	
