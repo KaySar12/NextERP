@@ -1,8 +1,12 @@
 name: Setup Docker Action
 on:
   push:
-    branches: [main]
-
+    branches: 
+      - main
+      - develop
+  pull_request:
+    branches: 
+      - main
 jobs:
   setup_docker:
     runs-on: self-hosted
