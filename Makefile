@@ -72,6 +72,6 @@ clean_up:
 		! -name "*.py" \
 		! -name "*.yml" \
 		-print0 | xargs -0 rm -rf {} && \
-	rm -rf ${DEPLOY_PATH}/etc/*
+	sudo rm -rf ${DEPLOY_PATH}/etc/*
 	
 	

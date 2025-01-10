@@ -1,10 +1,10 @@
-name: GitHub Actions Example
+name: Setup Docker Action
 on:
   push:
     branches: [main]
 
 jobs:
-  ci_pipeline:
+  setup_docker:
     runs-on: self-hosted
     strategy:
       matrix:
@@ -36,7 +36,9 @@ jobs:
 
       - name: Start Server
         run: make run_server_docker
-
+      - name: Sleep for 30 seconds
+        run: sleep 30s   
+         
       - name: Restore Database
         run: make restore_database
 
