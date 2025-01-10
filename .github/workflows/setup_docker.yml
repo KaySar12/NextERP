@@ -15,7 +15,9 @@ jobs:
         python:
           - 3.12.7
     steps:
-
+      - name: Checkout Repository
+        run: |
+            chmod -R u+rwX .
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
