@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Checkout Repository
         run: |
-            chmod -R u+rwX .
+          sudo chmod -R u+rwX .
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
