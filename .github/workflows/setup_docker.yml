@@ -15,9 +15,9 @@ jobs:
         python:
           - 3.12.7
     steps:
-      - name: Checkout Repository
+      - name: Clean up repository
         run: |
-          sudo chmod -R u+rwX .
+          sudo rm -rf ${{ github.workspace }}/*
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
