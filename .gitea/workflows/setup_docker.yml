@@ -9,7 +9,7 @@ on:
   #     - main
 jobs:
   setup_docker:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         python:
