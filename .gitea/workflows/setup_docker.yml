@@ -1,0 +1,64 @@
+name: Setup Docker Action
+on:
+  push:
+    branches: 
+      - main
+       # - develop
+  # pull_request:
+  #   branches: 
+  #     - main
+jobs:
+  setup_docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python:
+          - 3.12.7
+    steps:
+      # - name: Fix Permission
+      #   run: | 
+      #     sudo chown -R $(whoami):$(whoami) /home/$(whoami)/actions-runner  && \
+      #     sudo chmod -R 755 /home/$(whoami)/actions-runner
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Clean up Virtual Environment
+        run: ./setup/clean_up_virtualenvs.sh 0
+        
+      - name: Create Virtual Environment
+        run: pyenv virtualenv "${{ github.ref_name }}-$(git rev-parse --short "$GITHUB_SHA")"
+
+      - name: Install dotenv
+        run: pip install python-dotenv
+
+      # - name: Update Tag
+      #   run: make update_tag CURR_BRANCH=${{ github.ref_name }}
+
+      # - name: Stop Server Docker
+      #   run: make stop_server_docker
+
+      # - name: Generate Config
+      #   run: make gen_config
+
+      # - name: Build Image
+      #   run: make build_image
+
+      # - name: Start Server
+      #   run: make run_server_docker
+      # - name: Sleep for 30 seconds
+      #   run: sleep 30s   
+
+      # - name: Restore Database
+      #   run: make restore_database
+
+      # - name: Run Tests
+      #   run: make run_test_docker
+        
+      # - name: Login Docker hub
+      #   run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin ${{ secrets.DOCKER_HUB }}
+      # - name: Push Image
+      #   run: make push_image
+
+      # - name: Clean Up
+      #   run: make clean_up
