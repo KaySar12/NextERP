@@ -19,16 +19,16 @@ jobs:
       #   run: | 
       #     sudo chown -R $(whoami):$(whoami) /home/$(whoami)/actions-runner  && \
       #     sudo chmod -R 755 /home/$(whoami)/actions-runner
-      
+
       - name: Checkout Repository
         uses: actions/checkout@v4
-        # with:
-        #   ref: ${{ github.ref_name }}
-      # - name: Clean up Virtual Environment
-      #   run: ./setup/clean_up_virtualenvs.sh 0
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Clean up Virtual Environment
+        run: ./setup/clean_up_virtualenvs.sh 0
         
-      # - name: Create Virtual Environment
-      #   run: pyenv virtualenv "${{ github.ref_name }}-$(git rev-parse --short "$GITHUB_SHA")"
+      - name: Create Virtual Environment
+        run: pyenv virtualenv "${{ github.ref_name }}-$(git rev-parse --short "$GITHUB_SHA")"
 
       # - name: Install dotenv
       #   run: pip install python-dotenv
