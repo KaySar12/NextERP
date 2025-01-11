@@ -30,31 +30,31 @@ jobs:
       - name: Create Virtual Environment
         run: pyenv virtualenv "${{ github.ref_name }}-$(git rev-parse --short "$GITHUB_SHA")"
 
-      # - name: Install dotenv
-      #   run: pip install python-dotenv
+      - name: Install dotenv
+        run: pip install python-dotenv
 
-      # - name: Update Tag
-      #   run: make update_tag CURR_BRANCH=${{ github.ref_name }}
+      - name: Update Tag
+        run: make update_tag CURR_BRANCH=${{ github.ref_name }}
 
-      # - name: Stop Server Docker
-      #   run: make stop_server_docker
+      - name: Stop Server Docker
+        run: make stop_server_docker
 
-      # - name: Generate Config
-      #   run: make gen_config
+      - name: Generate Config
+        run: make gen_config
 
-      # - name: Build Image
-      #   run: make build_image
+      - name: Build Image
+        run: make build_image
 
-      # - name: Start Server
-      #   run: make run_server_docker
-      # - name: Sleep for 30 seconds
-      #   run: sleep 30s   
+      - name: Start Server
+        run: make run_server_docker
+      - name: Sleep for 30 seconds
+        run: sleep 30s   
 
-      # - name: Restore Database
-      #   run: make restore_database
+      - name: Restore Database
+        run: make restore_database
 
-      # - name: Run Tests
-      #   run: make run_test_docker
+      - name: Run Tests
+        run: make run_test_docker
         
       # - name: Login Docker hub
       #   run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin ${{ secrets.DOCKER_HUB }}
