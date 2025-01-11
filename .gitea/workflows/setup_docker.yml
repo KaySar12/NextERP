@@ -15,11 +15,6 @@ jobs:
         python:
           - 3.12.7
     steps:
-      # - name: Fix Permission
-      #   run: | 
-      #     sudo chown -R $(whoami):$(whoami) /home/$(whoami)/actions-runner  && \
-      #     sudo chmod -R 755 /home/$(whoami)/actions-runner
-
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
@@ -56,10 +51,10 @@ jobs:
       - name: Run Tests
         run: make run_test_docker
         
-      # - name: Login Docker hub
-      #   run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin ${{ secrets.DOCKER_HUB }}
-      # - name: Push Image
-      #   run: make push_image
+      - name: Login Docker hub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin ${{ secrets.DOCKER_HUB }}
+      - name: Push Image
+        run: make push_image
 
-      # - name: Clean Up
-      #   run: make clean_up
+      - name: Clean Up
+        run: make clean_up
