@@ -32,8 +32,8 @@ jobs:
       - name: Install dotenv
         run: pip install python-dotenv
 
-      # - name: Update Tag
-      #   run: make update_tag CURR_BRANCH=${{ github.ref_name }}
+      - name: Update Tag
+        run: make update_tag CURR_BRANCH=${{ github.ref_name }}
 
       # - name: Stop Server Docker
       #   run: make stop_server_docker
